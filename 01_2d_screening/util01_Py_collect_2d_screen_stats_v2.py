@@ -13,7 +13,7 @@ from rdkit.Chem import rdMolDescriptors
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('--screening_hits', '-s', help='The output .txt file with screening hits, sorted by SMARTS coverage and tab separated.')
+parser.add_argument('--screening_hits', '-s', help='The output 2d_stage_1.txt file with screening hits, sorted by SMARTS coverage and tab separated.')
 parser.add_argument('--outdir', '-od', help='The name of a directory where sorted 2d hits will be stored. If the folder does not exist it will be created. (default = sorted_2d_hits/)', default='sorted_2d_hits/')
 
 args = parser.parse_args()
@@ -25,14 +25,8 @@ def read_screening_hits(hit_list):
             l_data = line.strip().split('\t')
             smi = l_data[0]
             name = l_data[1]
+            smarts = l_data[2]
 
-            #if len(l_data) == 3:
-            #    smi = l_data[0]
-            #    name = l_data[1]
-            #elif len(l_data) == 5:
-            #    smi = l_data[0] + ' ' + l_data[1]
-            #    name = l_data[2]
-            
             mol = Chem.MolFromSmiles(smi)
             
             if mol is None:
@@ -49,7 +43,7 @@ def read_screening_hits(hit_list):
                 output_data[hac] = outfile
             
             with open(output_data[hac], 'a') as fo:
-                fo.write(f'{smi}\t{name}\t\t{hac}\t{rot_bonds}\n')
+                fo.write(f'{smi}\t{name}\t{smarts}\t{hac}\t{rot_bonds}\n')
 
 def main():
     os.makedirs(f'{args.outdir}', exist_ok=True)
