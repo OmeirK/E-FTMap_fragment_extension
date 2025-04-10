@@ -36,7 +36,7 @@ v5: [X] Treat PosIonizeable, NegIonizeable pharmacophore atoms as acceptors
         a second atom type
 v6: [X] Output the SMILES string of each ligand in the outfiles
 
-v7: [] Change so that an output folder is provided, not an output file name
+v7: [X] Change so that an output folder is provided, not an output file name
 '''
 
 import os
