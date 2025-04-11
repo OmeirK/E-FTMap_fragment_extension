@@ -4,7 +4,7 @@ from rdkit import Chem
 
 parser =  argparse.ArgumentParser()
 
-parser.add_argument('--eftmap_score_file', '-es', help='The .tsv file with E-FTMap scores only (containing paths to poses)')
+parser.add_argument('--eftmap_score_file', '-es', help='The .tsv file with E-FTMap scores (and paths to poses!)')
 parser.add_argument('--n_ligands', '-n', help='Extract poses for the top N scoring ligands (default = 2000)', type=int, default=2000)
 parser.add_argument('--outfile', '-o', help='The name of the sdf file with extractred poses (default = extracted_poses.sdf)', default='extracted_poses.sdf')
 
@@ -55,14 +55,10 @@ def extract_poses(score_data, pose_dict, n_poses, outfile):
 
 
 def main():
-    print('[1/3] Reading scores...')
-    #score_data = read_combo_scores(args.combo_score_file, eftmap=args.eftmap, diffusion=args.diffusion, combo=args.combo)
-    #print(score_data[:10])
-
-    print('[2/3] Finding pose files...')
+    print('[1/2] Reading scores...')
     pose_dict, score_data = find_poses(args.eftmap_score_file, args.n_ligands)
-    print(score_data)
-    #print(f'[3/3] Extracting poses to {args.outfile}...')
+
+    print(f'[2/2] Extracting poses to {args.outfile}...')
     extract_poses(score_data, pose_dict, args.n_ligands, args.outfile)
        
 
