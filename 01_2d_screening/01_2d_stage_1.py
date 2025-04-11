@@ -22,26 +22,21 @@ import multiprocessing as mp
 from itertools import product
 cpu_count = mp.cpu_count() - 1
 
-# Entire "ENAMINE REAL" database
-SMILES_FILES = ['/projectnb/docking/omeir/Enamine_REAL_db/Enamine_REAL_HAC_6_21_420M_CXSMILES.cxsmiles',
-                '/projectnb/docking/omeir/Enamine_REAL_db/Enamine_REAL_HAC_22_23_471M_CXSMILES.cxsmiles',
-                '/projectnb/docking/omeir/Enamine_REAL_db/Enamine_REAL_HAC_24_394M_CXSMILES.cxsmiles',
-                '/projectnb/docking/omeir/Enamine_REAL_db/Enamine_REAL_HAC_25_557M_CXSMILES.cxsmiles',
-                '/projectnb/docking/omeir/Enamine_REAL_db/Enamine_REAL_HAC_26_833M_Part_1_CXSMILES.cxsmiles',
-                '/projectnb/docking/omeir/Enamine_REAL_db/Enamine_REAL_HAC_26_833M_Part_2_CXSMILES.cxsmiles',
-                '/projectnb/docking/omeir/Enamine_REAL_db/Enamine_REAL_HAC_27_1.1B_Part_1_CXSMILES.cxsmiles', 
-                '/projectnb/docking/omeir/Enamine_REAL_db/Enamine_REAL_HAC_27_1.1B_Part_2_CXSMILES.cxsmiles',
-                '/projectnb/docking/omeir/Enamine_REAL_db/Enamine_REAL_HAC_28_1.2B_Part_1_CXSMILES.cxsmiles',
-                '/projectnb/docking/omeir/Enamine_REAL_db/Enamine_REAL_HAC_28_1.2B_Part_2_CXSMILES.cxsmiles',
-                '/projectnb/docking/omeir/Enamine_REAL_db/Enamine_REAL_HAC_29_38_988M_Part_1_CXSMILES.cxsmiles',
-                '/projectnb/docking/omeir/Enamine_REAL_db/Enamine_REAL_HAC_29_38_988M_Part_2_CXSMILES.cxsmiles'
-                ]
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--smarts_list', '-l', help='A file containing smarts patterns to use in the 2D screen. Only one SMARTS pattern must be writte on each line. Substructure hits from the smarts pattern on the first line will be saved to a folder called {out_dir}/anchor_1/2d_stage.txt')
 parser.add_argument('--out_dir', '-o', help='Name of the directory where outputs will be stored (default = ./results_2d_screen)', default='results_2d_screen/')
+parser.add_argument('--enamine_db', '-db', help='Path to the directory where enamine cxsmiles files are stored. The code requires that .cxsmiles files are tab-separated. Where the SMILES string of a compound is in the first column, and the compoundID is in the second column')
 
 args = parser.parse_args()
+SMILES_FILES = glob.glob(args.enamine_db)
+
+# Alternatively, provide manual paths to specific files 
+#SMILES_FILES = ['/projectnb/docking/omeir/Enamine_REAL_db/Enamine_REAL_HAC_6_21_420M_CXSMILES.cxsmiles',
+#                '/projectnb/docking/omeir/Enamine_REAL_db/Enamine_REAL_HAC_22_23_471M_CXSMILES.cxsmiles',
+#                '/projectnb/docking/omeir/Enamine_REAL_db/Enamine_REAL_HAC_24_394M_CXSMILES.cxsmiles',
+#                '/projectnb/docking/omeir/Enamine_REAL_db/Enamine_REAL_HAC_25_557M_CXSMILES.cxsmiles',
+#                ]
 
 def mp_func(mp_plan):
     smiles_file = mp_plan[0]
