@@ -29,7 +29,7 @@ parser.add_argument('--out_dir', '-o', help='Name of the directory where outputs
 parser.add_argument('--enamine_db', '-db', help='Path to the directory where enamine cxsmiles files are stored. The code requires that .cxsmiles files are tab-separated. Where the SMILES string of a compound is in the first column, and the compoundID is in the second column')
 
 args = parser.parse_args()
-SMILES_FILES = glob.glob(args.enamine_db)
+SMILES_FILES = glob.glob(f'{args.enamine_db}/*.cxsmiles')
 
 # Alternatively, provide manual paths to specific files 
 #SMILES_FILES = ['/projectnb/docking/omeir/Enamine_REAL_db/Enamine_REAL_HAC_6_21_420M_CXSMILES.cxsmiles',
