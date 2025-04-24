@@ -64,8 +64,8 @@ def mp_func(mp_plan):
                         print(smiles, idnumber, name, smiles_file_name)
                     
                     # Debugging
-                    if len(output[name]) > 10:
-                        return output 
+                    #if len(output[name]) > 10:
+                    #    return output 
 
     return output
 
