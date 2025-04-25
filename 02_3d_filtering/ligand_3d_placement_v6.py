@@ -10,7 +10,7 @@ v3: [X] Cluster poses and only save cluster centers
 v4: [X] Uhhhh I forgot to write what i changed :S
 v5: [X] Add an RMSD filter for poses that were generated
     [X] Add a parameter for number of conformers to generate
-v6: [] Disable multi-receptor docking to simplify the inputs
+v6: [X] Disable multi-receptor docking to simplify the inputs
        for public use
 '''
 
